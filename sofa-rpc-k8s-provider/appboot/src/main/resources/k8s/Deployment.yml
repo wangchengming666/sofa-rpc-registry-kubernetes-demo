@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sofa-rpc-k8s-provider
+  namespace: sofa-rpc-k8s
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sofa-rpc-k8s-provider
+  template:
+    metadata:
+      labels:
+        app: sofa-rpc-k8s-provider
+    spec:
+      serviceAccountName: sofa-sa
+      containers:
+        - name: server
+          image: sofa-rpc-k8s-provider:1.0.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 20880
